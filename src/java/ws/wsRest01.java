@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.json.Json;
 
@@ -89,6 +90,18 @@ public class wsRest01 {
         String json = gson.toJson(lista); 
 
         return json;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("Usuarios/dbUsuario")
+    public String dbUsuario(){
+        RnNome rn = new RnNome();
+        NomeBeans n = new NomeBeans();
+        ArrayList listaNomes = rn.buscaNomes("");
+        Gson g = new Gson();
+  
+        return g.toJson(listaNomes);
     }
 
 
