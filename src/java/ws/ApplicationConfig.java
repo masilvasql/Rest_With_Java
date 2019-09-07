@@ -29,7 +29,9 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(ws.wsRest01.class);
+   
+     resources.add(ws.LoginResource.class);
+     resources.add(ws.wsRest01.class);
     }
     
 }
