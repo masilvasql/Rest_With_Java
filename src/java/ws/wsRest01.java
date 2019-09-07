@@ -9,14 +9,8 @@ import Beans.NomeBeans;
 import RegraDeNegocio.RnNome;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import javax.json.Json;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -25,8 +19,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import sun.rmi.runtime.Log;
 
 /**
  * REST Web Service
@@ -67,7 +61,7 @@ public class wsRest01 {
         return json;
     }
     
-     @GET
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("Usuarios/list")
     public String listNomes(){
@@ -94,17 +88,28 @@ public class wsRest01 {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("Usuarios/dbUsuario")
-    public String dbUsuario(){
+    @Path("Usuarios/getUsuario/{nome}")
+    public String getUsuario( @PathParam("nome") String nome){
         RnNome rn = new RnNome();
         NomeBeans n = new NomeBeans();
-        ArrayList listaNomes = rn.buscaNomes("");
+        ArrayList listaNomes = rn.buscaNomes(nome);
         Gson g = new Gson();
   
         return g.toJson(listaNomes);
     }
 
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("Usuarios/getUsuarios")
+    public String getUsuarios(){
+        RnNome rn = new RnNome();
+        ArrayList list = rn.buscaNomes("");
+        Gson g = new Gson();
+        
+        return g.toJson(list);
+    }
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
