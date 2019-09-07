@@ -5,6 +5,7 @@
  */
 package ws;
 
+import Beans.LoginBeans;
 import Beans.NomeBeans;
 import RegraDeNegocio.RnLogin;
 import RegraDeNegocio.RnNome;
@@ -44,10 +45,10 @@ public class LoginResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("Login/todos")
+    @Path("/todos")
     public String getUsuarios(){
         RnLogin rl = new RnLogin();
-        ArrayList list = rl.buscarRegistros("");
+        List<LoginBeans> list = rl.buscarRegistros("");
         Gson g = new Gson();
         
         return g.toJson(list);
@@ -55,13 +56,15 @@ public class LoginResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("Login/login/{login}")
+    @Path("/login/{login}")
     public String getUsuario(@PathParam("login") String login){
         RnLogin rl = new RnLogin();
-        ArrayList list = rl.buscarRegistros(login);
+        LoginBeans lb = new LoginBeans();
+        lb  = rl.buscarRegistro(login);
+       
         Gson g = new Gson();
         
-        return g.toJson(list);
+        return g.toJson(lb);
     }
     
     @PUT

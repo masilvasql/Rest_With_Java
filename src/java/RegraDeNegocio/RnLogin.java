@@ -5,9 +5,11 @@
  */
 package RegraDeNegocio;
 
+import Beans.LoginBeans;
 import DAO.LoginDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class RnLogin {
     
-    public ArrayList buscarRegistros(String login) {
-        ArrayList resultado = new ArrayList();
+    public List<LoginBeans> buscarRegistros(String login) {
+        List resultado = new ArrayList();
         
         try{
             LoginDao ld = new LoginDao();
@@ -27,6 +29,20 @@ public class RnLogin {
         }
         
         return resultado;
+    
+    }
+    
+     public LoginBeans buscarRegistro(String login) {
+        LoginBeans lb  = new LoginBeans();
+        
+        try{
+            LoginDao ld = new LoginDao();
+            lb = ld.buscarRegistro(login);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro em buscarRegistros - RnNome");
+        }
+        
+        return lb;
     
     }
     

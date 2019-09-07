@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,8 +32,8 @@ public class LoginDao {
         
     }
     
-    public ArrayList buscarRegistros (String login) throws SQLException{
-        ArrayList registros = new ArrayList();
+    public List<LoginBeans> buscarRegistros (String login) throws SQLException{
+        List<LoginBeans> registros = new ArrayList();
         buscaRegistros.setString(1, "%" + login + "%");
         ResultSet resultado = buscaRegistros.executeQuery();
         
@@ -46,6 +47,22 @@ public class LoginDao {
         }
         
         return registros;
+    }
+    
+    public LoginBeans buscarRegistro (String login) throws SQLException{
+        LoginBeans lb = null;
+        buscaRegistros.setString(1, "%" + login + "%");
+        ResultSet resultado = buscaRegistros.executeQuery();
+        
+        if(resultado.next()){
+            lb = new LoginBeans();
+            lb.setIdLogin(resultado.getInt(1));
+            lb.setNomeUsuario(resultado.getString(2));
+            lb.setLoginUsuario(resultado.getString(3));
+            lb.setSenhaUsuario(resultado.getString(4));
+        }
+        
+        return lb;
     }
       
 }
